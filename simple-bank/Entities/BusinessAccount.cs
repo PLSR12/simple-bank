@@ -10,8 +10,9 @@ namespace simple_bank.Entities
         {
         }
 
-        public BusinessAccount(int number, string holder, double balance, double loanLimit)
-            : base(number, holder, balance)
+        public BusinessAccount(int number, string holder, double balance, double loanLimit, double withdrawLimit
+            )
+            : base(number, holder, balance, withdrawLimit)
         {
             LoanLimit = loanLimit;
         }

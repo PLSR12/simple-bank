@@ -1,18 +1,39 @@
-﻿using simple_bank.Entities;
+﻿using System.Globalization;
+using simple_bank.Entities;
+using simple_bank.Entities.Exceptions;
 
 namespace simple_bank {
     class Program
 {
     static void Main(string[] args)
     {
-        Account acc1 = new Account(1001, "Alex", 500.0);
-        Account acc2 = new SavingsAccount(1002, "Anna", 500.0, 0.01);
 
-        acc1.Withdraw(10.0);
-        acc2.Withdraw(10.0);
 
-        Console.WriteLine(acc1.Balance);
-        Console.WriteLine(acc2.Balance);
-    }
+            Console.WriteLine("Enter account data");
+            Console.Write("Number: ");
+            int number = int.Parse(Console.ReadLine());
+            Console.Write("Holder: ");
+            String holder = Console.ReadLine();
+            Console.Write("Initial balance: ");
+            double balance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.Write("Withdraw limit: ");
+            double withdrawLimit = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            Account acc = new Account(number, holder, balance, withdrawLimit);
+
+            Console.WriteLine();
+            Console.Write("Enter amount for withdraw: ");
+            double amount = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            try
+            {
+                acc.Withdraw(amount,withdrawLimit);
+                Console.WriteLine("New balance: " + acc.Balance.ToString("F2", CultureInfo.InvariantCulture));
+            }
+            catch (DomainException e)
+            {
+                Console.WriteLine("Withdraw error: " + e.Message);
+            }
+        }
 }
 }

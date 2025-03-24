@@ -11,8 +11,8 @@ namespace simple_bank.Entities
         {
         }
 
-        public SavingsAccount(int number, string holder, double balance, double interestRate)
-            : base(number, holder, balance)
+        public SavingsAccount(int number, string holder, double balance, double interestRate, double withdrawLimit)
+            : base(number, holder, balance, withdrawLimit)
         {
             InterestRate = interestRate;
         }
@@ -22,9 +22,9 @@ namespace simple_bank.Entities
             Balance += Balance * InterestRate;
         }
 
-        public override void Withdraw(double amount)
+        public override void Withdraw(double amount, double withdrawLimit)
         {
-            base.Withdraw(amount);
+            base.Withdraw(amount, withdrawLimit);
             // Call the base class method and add a rule to remove two more for withdrawal fee
             Balance -= 2.0;
         }
